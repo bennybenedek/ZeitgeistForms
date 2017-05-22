@@ -175,7 +175,7 @@ namespace WindowsFormsAppZeitgeist
                     p.Dock = DockStyle.Fill;
                     t.Controls.Add(p, z, s);
                     t.Controls.SetChildIndex(p, cellIndex);
-                    cellIndex++;
+                    cellIndex++;                  
                 }
             }
         }
