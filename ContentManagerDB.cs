@@ -22,8 +22,8 @@ namespace WindowsFormsAppZeitgeist
         OleDbCommand command;
         OleDbDataReader rd;
 
-        con.ConnectionString = Properties.Settings.Default.DbPath;
-        con.Open();
+        //con.ConnectionString = Properties.Settings.Default.DbPath;
+        //con.Open();
         public ContentManagerDB()
         {
             IdeenElemente = new List<Idee>();
