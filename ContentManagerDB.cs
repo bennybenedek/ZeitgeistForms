@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WindowsFormsAppZeitgeist
 {
-    class ContentManagerDB
+    public class ContentManagerDB
     {
         public List<Idee> IdeenElemente { get; set; }
         public List<Komponente> KomponentenElemente { get; set; }
@@ -57,6 +58,7 @@ namespace WindowsFormsAppZeitgeist
                 neu.GlobalIndex = AsValue<int>(rd[i++]);
                 neu.Bezeichnung = AsValue<string>(rd[i++]);
                 neu.Quantity = AsValue<int>(rd[i++]);
+                neu.Front = Image.FromFile(AsValue<string>(rd[i++]));
 
                 KomponentenElemente.Add(neu);
             }
@@ -81,12 +83,22 @@ namespace WindowsFormsAppZeitgeist
                 neu.Patentwert = AsValue<int>(rd[i++]);
                 neu.Ebene = AsValue<int>(rd[i++]);
                 neu.Quantity = AsValue<int>(rd[i++]);
+                neu.Front = Image.FromFile(AsValue<string>(rd[i++]));
+
+                //Ausgewählten Ideen die Patentobjekte hinzufügen    
+                if (neu.IdeeIndex >= 5)
+                {
+                    neu.Patente.Add(IdeenElemente[AsValue<int>(rd[8])]);
+                    neu.Patente.Add(IdeenElemente[AsValue<int>(rd[9])]);
+                }
+
+                IdeenElemente.Add(neu);
             }
             rd.Close();
 
 
             //DienerElemente laden
-            command.CommandText = "Idea";
+            command.CommandText = "Servant";
             command.CommandType = CommandType.TableDirect;
 
             rd = command.ExecuteReader();
@@ -100,10 +112,76 @@ namespace WindowsFormsAppZeitgeist
                 neu.GlobalIndex = AsValue<int>(rd[i++]);
                 neu.Bezeichnung = AsValue<string>(rd[i++]);
                 neu.Quantity = AsValue<int>(rd[i++]);
+                neu.Front = Image.FromFile(AsValue<string>(rd[i++]));
+
+                DienerElemente.Add(neu);
             }
             rd.Close();
-        }
 
+
+            //Den Ideen die Komponentenkosten hinzufuegen
+            command.CommandText = "IdeaCost";
+            command.CommandType = CommandType.TableDirect;
+
+            rd = command.ExecuteReader();
+
+            while (rd.Read())
+            {
+                Idee i = IdeenElemente[AsValue<int>(rd[1])];
+                i.KompKosten[AsValue<int>(rd[2])] = AsValue<int>(rd[3]);
+            }
+            rd.Close();
+
+        }
+        public void BuildComponentBank()
+        {
+            //hier die eigentlichen KompKarten erstellen 
+            //und dem Vorrat hinzufügen
+
+            foreach (Komponente k in KomponentenElemente)
+            {
+                for (int j = 0; j < k.Quantity; j++)
+                {
+                    Karte neu = new Karte(k);
+                    KomponentenVorrat.Add(neu);
+                }
+            }
+        }
+        public void BuildIdeaBank()
+        {
+            //hier die eigentlichen IdeeKarten erstellen 
+            //und dem Vorrat hinzufügen
+
+            foreach (Idee i in IdeenElemente)
+            {
+                for (int j = 0; j < i.Quantity; j++)
+                {
+                    Karte neu = new Karte(i);
+                    IdeenVorrat.Add(neu);
+                }
+            }
+        }
+        public void BuildServantBank()
+        {
+            //hier die eigentlichen DienerPlättchen erstellen 
+            //und dem Vorrat hinzufügen
+
+            foreach (Diener d in DienerElemente)
+            {
+                for (int j = 0; j < d.Quantity; j++)
+                {
+                    Karte neu = new Karte(d);
+                    DienerVorrat.Add(neu);
+                }
+            }
+        }
+        public void CreateGameObjects()
+        {
+            LoadGameElements();
+            BuildComponentBank();
+            BuildIdeaBank();
+            BuildServantBank();
+        }
         private T AsValue<T>(object o)
         {
             if (o == DBNull.Value)

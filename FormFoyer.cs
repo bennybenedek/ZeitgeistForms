@@ -50,7 +50,7 @@ namespace WindowsFormsAppZeitgeist
             PictureBox p = (PictureBox)sender;
             int dienerIndex = panelDienerAuswahl.Controls.GetChildIndex(p);
 
-            party.Foyer_Anheuern(new Karte(party.GameContent.DienerElemente[dienerIndex]));
+            party.Foyer_Anheuern(new Karte(party.GameContentDb.DienerElemente[dienerIndex]));
 
             myForm.RefreshPlayerInfo();
             myForm.RefreshFoyerTable(myForm.tableLayoutPanelFoyer, s);

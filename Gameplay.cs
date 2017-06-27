@@ -22,6 +22,8 @@ namespace WindowsFormsAppZeitgeist
         public Random Rand { get; set; }
         public CardManager GameManager { get; set; }
         public ContentManager GameContent { get; set; }
+        public ContentManagerDB GameContentDb { get; set; }
+
 
 
         public Gameplay()
@@ -38,6 +40,7 @@ namespace WindowsFormsAppZeitgeist
 
             GameManager = new CardManager();
             GameContent = new ContentManager();
+            GameContentDb = new ContentManagerDB();
             Rand = new Random();
         }
         public void InitializeGame(

@@ -19,7 +19,8 @@ namespace WindowsFormsAppZeitgeist
             InitializeComponent();
 
             party = new Gameplay();
-            party.GameContent.CreateGameObjects();
+            //party.GameContent.CreateGameObjects();
+            party.GameContentDb.CreateGameObjects();
 
             Diener.setBack(Image.FromFile("Diener03_Back.png"));
         }
@@ -56,9 +57,9 @@ namespace WindowsFormsAppZeitgeist
             panelActionSelect.Visible = true;
 
             party.InitializeGame(
-                party.GameContent.KomponentenVorrat,
-                party.GameContent.IdeenVorrat,
-                party.GameContent.DienerVorrat);
+                party.GameContentDb.KomponentenVorrat,
+                party.GameContentDb.IdeenVorrat,
+                party.GameContentDb.DienerVorrat);
 
             LabelAktionAnpassen();
             RefreshBoard();
@@ -204,7 +205,7 @@ namespace WindowsFormsAppZeitgeist
             {
                 Label l = (Label)panelBoard.Controls[i];
                 Label l2 = (Label)panelBoard.Controls[i+15];
-                Idee id = party.GameContent.IdeenElemente[i];
+                Idee id = party.GameContentDb.IdeenElemente[i];
                 l.Visible = true;
 
                 if (id.Erfunden)

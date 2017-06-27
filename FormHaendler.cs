@@ -146,7 +146,7 @@ namespace WindowsFormsAppZeitgeist
             }
             else
             {
-                party.Haendler_Kaufen(new Karte(party.GameContent.KomponentenElemente[elementIndex]));
+                party.Haendler_Kaufen(new Karte(party.GameContentDb.KomponentenElemente[elementIndex]));
                 myForm.KartenEntfernen();
                 myForm.buttonKartenAnzeigen_Click(this, e);
                 myForm.RefreshPlayerInfo();
