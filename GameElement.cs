@@ -19,5 +19,10 @@ namespace WindowsFormsAppZeitgeist
         {
             Front = null;
         }
+
+        public override string ToString()
+        {
+            return Bezeichnung;
+        }
     }
 }

@@ -40,6 +40,11 @@
             this.labelBote = new System.Windows.Forms.Label();
             this.labelWaechter = new System.Windows.Forms.Label();
             this.labelSpion = new System.Windows.Forms.Label();
+            this.labelAuswahl = new System.Windows.Forms.Label();
+            this.buttonConfirm = new System.Windows.Forms.Button();
+            this.comboBoxDienerAuswahl = new System.Windows.Forms.ComboBox();
+            this.comboBoxSpielerAuswahl = new System.Windows.Forms.ComboBox();
+            this.comboBoxAnzahlAuswahl = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoyer)).BeginInit();
             this.panelDienerAuswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpion)).BeginInit();
@@ -164,12 +169,70 @@
             this.labelSpion.TabIndex = 1;
             this.labelSpion.Text = "Spion";
             // 
+            // labelAuswahl
+            // 
+            this.labelAuswahl.AutoSize = true;
+            this.labelAuswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAuswahl.Location = new System.Drawing.Point(556, 412);
+            this.labelAuswahl.Name = "labelAuswahl";
+            this.labelAuswahl.Size = new System.Drawing.Size(220, 40);
+            this.labelAuswahl.TabIndex = 8;
+            this.labelAuswahl.Text = "Welchen Diener möchtest \r\ndu einsetzen?";
+            this.labelAuswahl.Visible = false;
+            // 
+            // buttonConfirm
+            // 
+            this.buttonConfirm.Enabled = false;
+            this.buttonConfirm.Location = new System.Drawing.Point(764, 519);
+            this.buttonConfirm.Name = "buttonConfirm";
+            this.buttonConfirm.Size = new System.Drawing.Size(71, 23);
+            this.buttonConfirm.TabIndex = 6;
+            this.buttonConfirm.Text = "Bestätigen";
+            this.buttonConfirm.UseVisualStyleBackColor = true;
+            this.buttonConfirm.Visible = false;
+            this.buttonConfirm.Click += new System.EventHandler(this.buttonConfirm_Click);
+            // 
+            // comboBoxDienerAuswahl
+            // 
+            this.comboBoxDienerAuswahl.FormattingEnabled = true;
+            this.comboBoxDienerAuswahl.Location = new System.Drawing.Point(552, 471);
+            this.comboBoxDienerAuswahl.Name = "comboBoxDienerAuswahl";
+            this.comboBoxDienerAuswahl.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxDienerAuswahl.TabIndex = 9;
+            this.comboBoxDienerAuswahl.Visible = false;
+            this.comboBoxDienerAuswahl.SelectedIndexChanged += new System.EventHandler(this.comboBoxDienerAuswahl_SelectedIndexChanged);
+            // 
+            // comboBoxSpielerAuswahl
+            // 
+            this.comboBoxSpielerAuswahl.FormattingEnabled = true;
+            this.comboBoxSpielerAuswahl.Location = new System.Drawing.Point(746, 470);
+            this.comboBoxSpielerAuswahl.Name = "comboBoxSpielerAuswahl";
+            this.comboBoxSpielerAuswahl.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxSpielerAuswahl.TabIndex = 9;
+            this.comboBoxSpielerAuswahl.Visible = false;
+            this.comboBoxSpielerAuswahl.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpielerAuswahl_SelectedIndexChanged);
+            // 
+            // comboBoxAnzahlAuswahl
+            // 
+            this.comboBoxAnzahlAuswahl.FormattingEnabled = true;
+            this.comboBoxAnzahlAuswahl.Location = new System.Drawing.Point(649, 471);
+            this.comboBoxAnzahlAuswahl.Name = "comboBoxAnzahlAuswahl";
+            this.comboBoxAnzahlAuswahl.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxAnzahlAuswahl.TabIndex = 9;
+            this.comboBoxAnzahlAuswahl.Visible = false;
+            this.comboBoxAnzahlAuswahl.SelectedIndexChanged += new System.EventHandler(this.comboBoxAnzahlAuswahl_SelectedIndexChanged);
+            // 
             // FormFoyer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 554);
+            this.Controls.Add(this.comboBoxAnzahlAuswahl);
+            this.Controls.Add(this.comboBoxSpielerAuswahl);
+            this.Controls.Add(this.comboBoxDienerAuswahl);
+            this.Controls.Add(this.labelAuswahl);
             this.Controls.Add(this.panelDienerAuswahl);
+            this.Controls.Add(this.buttonConfirm);
             this.Controls.Add(this.buttonEinsetzen);
             this.Controls.Add(this.buttonAnheuern);
             this.Controls.Add(this.labelComm);
@@ -201,5 +264,10 @@
         private System.Windows.Forms.PictureBox pictureBoxBote;
         private System.Windows.Forms.PictureBox pictureBoxWaechter;
         private System.Windows.Forms.PictureBox pictureBoxSpion;
+        private System.Windows.Forms.Label labelAuswahl;
+        private System.Windows.Forms.Button buttonConfirm;
+        private System.Windows.Forms.ComboBox comboBoxDienerAuswahl;
+        private System.Windows.Forms.ComboBox comboBoxSpielerAuswahl;
+        private System.Windows.Forms.ComboBox comboBoxAnzahlAuswahl;
     }
 }

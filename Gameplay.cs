@@ -185,6 +185,14 @@ namespace WindowsFormsAppZeitgeist
             s.AnzahlAktionen--;
             s.Gold -= 2;
         }
+        public void Foyer_Spion(int anzahl, Spieler anzugreifen)
+        {
+
+        }
+        public void Foyer_Bote(int anzahl)
+        {
+
+        }
         public bool Patentamt_KomponentenPruefen(Idee id)
         {
             Spieler s = ActivePlayer;
