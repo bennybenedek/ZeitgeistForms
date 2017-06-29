@@ -135,6 +135,7 @@ namespace WindowsFormsAppZeitgeist
             if (d.DienerIndex == party.GameContentDb.DienerElemente[0].DienerIndex)
             {
                 party.Foyer_Spion(anzahl, anzugreifen);
+
                 myForm.RefreshFoyerTable(myForm.tableLayoutPanelFoyer, s);
                 myForm.RefreshAllPlayerInfo();
             }

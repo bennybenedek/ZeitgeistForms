@@ -245,7 +245,8 @@ namespace WindowsFormsAppZeitgeist
                 for (int s = 0; s < 2; s++)
                 {
                     PictureBox p = (PictureBox)t.Controls[cellIndex];
-                    p.Image = null;            
+                    p.Image = null;
+                    p.Visible = false;
 
                     if (cellIndex < sp.DienerPlaettchen.Count())
                     {
@@ -264,9 +265,9 @@ namespace WindowsFormsAppZeitgeist
                         p.Visible = true;
                         p.Dock = DockStyle.Fill;
                         t.Controls.Add(p, z, s);
-                        t.Controls.SetChildIndex(p, cellIndex);
-                        cellIndex++;
+                        t.Controls.SetChildIndex(p, cellIndex);                     
                     }
+                    cellIndex++;
                 }
             }
         }
