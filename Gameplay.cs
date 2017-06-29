@@ -185,13 +185,39 @@ namespace WindowsFormsAppZeitgeist
             s.AnzahlAktionen--;
             s.Gold -= 2;
         }
-        public void Foyer_Spion(int anzahl, Spieler anzugreifen)
+        public void Foyer_Spion(int anzahlSpione, Spieler anzugreifen)
         {
+            Spieler s = ActivePlayer;
 
+            int anzahlWaechter = GameManager.CountSpecificCard(anzugreifen.DienerPlaettchen, GameContentDb.DienerElemente[1].GlobalIndex);
+
+            // Wir haben mehr Spione als der ausgewählte Spieler und erhalten nun alle seine Arbeitszimmer Karten in unser eigenes Arbeitszimmer
+            if (anzahlSpione > anzahlWaechter)
+            {
+                GameManager.Deal(s.ArbeitszimmerKarten, anzugreifen.ArbeitszimmerKarten, anzugreifen.ArbeitszimmerKarten.Count);
+                s.HandKarten = GameManager.SortCards(s.HandKarten);
+            }
+                
+            //Der ausgewählte Spieler verliert soviele Wächter wie er Spione abwehren musste
+            for (int i = 0; i < anzahlSpione; i++)
+            {
+                anzugreifen.DienerPlaettchen.Remove(anzugreifen.DienerPlaettchen.Find(k => k.RefElement.GlobalIndex == GameContentDb.DienerElemente[1].GlobalIndex));
+            }
+
+            //alle eingesetzten Spione des aktiven Spieles gehen verloren
+            for (int j = 0; j < anzahlSpione; j++)
+            {
+                s.DienerPlaettchen.Remove(s.DienerPlaettchen.Find(k => k.RefElement.GlobalIndex == GameContentDb.DienerElemente[0].GlobalIndex));
+            }
+
+            s.AnzahlAktionen--;         
         }
-        public void Foyer_Bote(int anzahl)
+        public void Foyer_Bote(int anzahlBoten)
         {
+            Spieler s = ActivePlayer;
 
+            s.AnzahlAktionen += (anzahlBoten * 3);
+            s.AnzahlAktionen--;
         }
         public bool Patentamt_KomponentenPruefen(Idee id)
         {

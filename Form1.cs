@@ -192,6 +192,21 @@ namespace WindowsFormsAppZeitgeist
 
             RefreshFoyerTable(t, s);
         }
+        public void RefreshAllPlayerInfo()
+        {
+            foreach (Spieler sp in party.Players)
+            {
+                GroupBox g = (GroupBox)panelPlayerInfo.Controls[party.Players.IndexOf(sp)];
+                TableLayoutPanel t = (TableLayoutPanel)g.Controls[1];
+
+                ((Label)g.Controls[2]).Text = "Karten im Arbeitszimmer: " + sp.ArbeitszimmerKarten.Count;
+                ((Label)g.Controls[3]).Text = "Gold: " + sp.Gold;
+                ((Label)g.Controls[3]).Text = "Gold: " + sp.Gold;
+                ((Label)g.Controls[4]).Text = "Punkte: " + sp.Punkte;
+
+                RefreshFoyerTable(t, sp);
+            }
+        }
         public void RefreshDeckInfo()
         {
             labelIdCount.Text = "Karten im Ideen-Nachziehstapel: " +party.IdeenNachziehDeck.Count().ToString();
@@ -229,7 +244,8 @@ namespace WindowsFormsAppZeitgeist
             {
                 for (int s = 0; s < 2; s++)
                 {
-                    PictureBox p = (PictureBox)t.Controls[cellIndex];              
+                    PictureBox p = (PictureBox)t.Controls[cellIndex];
+                    p.Image = null;            
 
                     if (cellIndex < sp.DienerPlaettchen.Count())
                     {

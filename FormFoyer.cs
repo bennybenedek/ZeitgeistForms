@@ -52,8 +52,6 @@ namespace WindowsFormsAppZeitgeist
             anzahlSpione = party.GameManager.CountSpecificCard(s.DienerPlaettchen, party.GameContentDb.DienerElemente[0].GlobalIndex);
             anzahlBoten = party.GameManager.CountSpecificCard(s.DienerPlaettchen, party.GameContentDb.DienerElemente[2].GlobalIndex);
 
-            MessageBox.Show("Anzahl Spione ist:" + anzahlSpione);
-
             labelAuswahl.Visible = true;
             buttonConfirm.Visible = true;
             comboBoxDienerAuswahl.Visible = true;
@@ -137,11 +135,17 @@ namespace WindowsFormsAppZeitgeist
             if (d.DienerIndex == party.GameContentDb.DienerElemente[0].DienerIndex)
             {
                 party.Foyer_Spion(anzahl, anzugreifen);
+                myForm.RefreshFoyerTable(myForm.tableLayoutPanelFoyer, s);
+                myForm.RefreshAllPlayerInfo();
             }
             else //Bote
             {
                 party.Foyer_Bote(anzahl);
-            }          
+            }
+
+            myForm.BlockActions();
+
+            Close();
         }
     }
 }
