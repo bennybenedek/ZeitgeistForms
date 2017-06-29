@@ -25,7 +25,6 @@ namespace WindowsFormsAppZeitgeist
         public ContentManagerDB GameContentDb { get; set; }
 
 
-
         public Gameplay()
         {
             Players = new List<Spieler>();
@@ -259,6 +258,40 @@ namespace WindowsFormsAppZeitgeist
             }
             return true;
         }
+        public bool Patentamt_GoldPruefen(Idee id)
+        {
+            Spieler s = ActivePlayer;
+
+            if (id.Patente.Count > 0)
+            {
+                foreach (Idee i in id.Patente)
+                {
+                    if (i.Erfinder != s)
+                    {
+                        s.ZuZahlen += i.Patentwert;
+                        i.Erfinder.ZuErhalten += i.Patentwert;
+                    }
+
+                    Patentamt_ErfindungPruefen(i);
+                }
+            }
+
+            if (!s.GenugGold(s.ZuZahlen))
+            {
+                s.ZuZahlen = 0;
+
+                foreach (Spieler sp in Players)
+                {
+                    sp.ZuErhalten = 0;
+                }
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public void Patentamt_IdeePatentieren(Idee id)
         {
             Spieler s = ActivePlayer;
@@ -267,6 +300,14 @@ namespace WindowsFormsAppZeitgeist
             id.Erfinder = s;
             s.Erfindungen.Add(id);
             s.Punkte += 10 * id.Ebene;
+
+            s.Gold -= s.ZuZahlen;
+
+            foreach (Spieler sp in Players)
+            {
+                sp.Gold += sp.ZuErhalten;
+                sp.ZuErhalten = 0;
+            }
 
             GameManager.Discard(s.HandKarten, IdeenAblageDeck, s.AktuelleAuswahl);
 

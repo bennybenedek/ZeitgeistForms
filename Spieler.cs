@@ -13,6 +13,8 @@ namespace WindowsFormsAppZeitgeist
         public int Punkte { get; set; }
         public int Gold { get; set; }
         public int AnzahlAktionen { get; set; }
+        public int ZuErhalten { get; set; }
+        public int ZuZahlen { get; set; }
 
         public static int MaxHandkarten { get; set; } = 7;
         public static int MaxDiener { get; set; } = 4;

@@ -47,6 +47,10 @@ namespace WindowsFormsAppZeitgeist
                 {
                     MessageBox.Show("Es wurden noch nicht alle notwendigen Ideen erfunden, um diese Idee zu patentieren.");
                 }
+                else if (!party.Patentamt_GoldPruefen(i))
+                {
+                    MessageBox.Show("Du hast nicht genuegend Gold, um diese Idee zu patentieren.");
+                }
                 else if (!party.Patentamt_KomponentenPruefen(i))
                 {
                     MessageBox.Show("Du hast nicht alle nötigen Komponenten, um diese Idee zu patentieren.");
