@@ -284,6 +284,17 @@ namespace WindowsFormsAppZeitgeist
                 labelAktionWaehlen.Text = party.ActivePlayer.Name + ", du hast keine Aktionen mehr frei.";
             }
         }
+        public void BlockAll()
+        {
+            buttonArbeitszimmer.Enabled = false;
+            buttonHaendler.Enabled = false;
+            buttonVeranda.Enabled = false;
+            buttonPatentamt.Enabled = false;
+            buttonFoyer.Enabled = false;
+            buttonArbeitszimmerAnzeigen.Enabled = false;
+            buttonFertig.Enabled = false;
+            buttonKartenAnzeigen.Enabled = false;
+        }
         public void buttonKartenAnzeigen_Click(object sender, EventArgs e)
         {
             //die Karten des aktiven Spielers sollen angezeigt werden
@@ -343,34 +354,40 @@ namespace WindowsFormsAppZeitgeist
             //Bilder aus Pictureboxen entfernen und Panels unsichtbar machen
             KartenEntfernen();
 
-            if (party.GameEnd == true)
+            if (party.GameEnd)
             {
+                party.EndGame();
+                BlockAll();
 
+                labelAktionWaehlen.Text = "Spiel vorbei." + Environment.NewLine + party.Winner + "hat gewonnen!";
             }
 
-            //Nächster Spieler wird aktiver Spieler und erhält eine Aktion
-            int activeIndex = party.Players.IndexOf(party.ActivePlayer) + 1;
-
-            if (activeIndex > party.Players.Count-1)
+            else
             {
-                activeIndex = 0;
+                //Nächster Spieler wird aktiver Spieler und erhält eine Aktion
+                int activeIndex = party.Players.IndexOf(party.ActivePlayer) + 1;
+
+                if (activeIndex > party.Players.Count - 1)
+                {
+                    activeIndex = 0;
+                }
+                party.ActivePlayer = party.Players[activeIndex];
+                party.ActivePlayer.AnzahlAktionen = 1;
+                s = party.ActivePlayer;
+                LabelAktionAnpassen();
+
+                //Foyer unsichtbar machen bzw. clearen
+                labelFoyer.Visible = false;
+                tableLayoutPanelFoyer.Visible = false;
+                FoyerEntfernen();
+
+                //Aktionen verfügbar machen
+                buttonArbeitszimmer.Enabled = true;
+                buttonHaendler.Enabled = true;
+                buttonVeranda.Enabled = true;
+                buttonPatentamt.Enabled = true;
+                buttonFoyer.Enabled = true;
             }
-            party.ActivePlayer = party.Players[activeIndex];
-            party.ActivePlayer.AnzahlAktionen = 1;
-            s = party.ActivePlayer;
-            LabelAktionAnpassen();
-
-            //Foyer unsichtbar machen bzw. clearen
-            labelFoyer.Visible = false;
-            tableLayoutPanelFoyer.Visible = false;
-            FoyerEntfernen();
-
-            //Aktionen verfügbar machen
-            buttonArbeitszimmer.Enabled = true;
-            buttonHaendler.Enabled = true;
-            buttonVeranda.Enabled = true;
-            buttonPatentamt.Enabled = true;
-            buttonFoyer.Enabled = true;
         }
         public void KartenEntfernen()
         {

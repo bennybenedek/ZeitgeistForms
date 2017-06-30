@@ -11,6 +11,7 @@ namespace WindowsFormsAppZeitgeist
     {
         public virtual int IdeeIndex { get; set; }
         public bool Erfunden { get; set; }
+        public bool PatentGeprueft { get; set; }
         public int[] KompKosten { get; set; }
         public int Ebene { get; set; }
         public int Punktewert { get; set; }

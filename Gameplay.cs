@@ -21,7 +21,6 @@ namespace WindowsFormsAppZeitgeist
 
         public Random Rand { get; set; }
         public CardManager GameManager { get; set; }
-        public ContentManager GameContent { get; set; }
         public ContentManagerDB GameContentDb { get; set; }
 
         public bool GameEnd { get; set; }
@@ -40,7 +39,6 @@ namespace WindowsFormsAppZeitgeist
             DienerNachziehDeck = new List<Karte>();
 
             GameManager = new CardManager();
-            GameContent = new ContentManager();
             GameContentDb = new ContentManagerDB();
             Rand = new Random();
         }
@@ -268,20 +266,26 @@ namespace WindowsFormsAppZeitgeist
             {
                 foreach (Idee i in id.Patente)
                 {
-                    if (i.Erfinder != s)
+                    if ((i.Erfinder != s) && (!i.PatentGeprueft))
                     {
                         s.ZuZahlen += i.Patentwert;
                         i.Erfinder.ZuErhalten += i.Patentwert;
                     }
 
+                    i.PatentGeprueft = true;
+
                     Patentamt_GoldBerechnen(i);
                 }
             }
         }
-
-         public bool Patentamt_GoldPruefen()
+        public bool Patentamt_GoldPruefen()
         {
             Spieler s = ActivePlayer;
+
+            foreach (Idee i in  GameContentDb.IdeenElemente)
+            {
+                i.PatentGeprueft = false;
+            }
 
             if (!s.GenugGold(s.ZuZahlen))
             {
@@ -299,7 +303,6 @@ namespace WindowsFormsAppZeitgeist
                 return true;
             }
         }
-
         public void Patentamt_IdeePatentieren(Idee id)
         {
             Spieler s = ActivePlayer;
@@ -310,6 +313,7 @@ namespace WindowsFormsAppZeitgeist
             s.Punkte += 10 * id.Ebene;
 
             s.Gold -= s.ZuZahlen;
+            s.ZuZahlen = 0;
 
             foreach (Spieler sp in Players)
             {
@@ -327,6 +331,18 @@ namespace WindowsFormsAppZeitgeist
             {
                 GameEnd = true;
             }
+        }
+        public void EndGame()
+        {
+            //Für jeden Spieler Zimmerpunkte zu seinen Punkten addieren 
+            foreach (Spieler sp in Players)
+            {
+                sp.Punkte += sp.ZimmerPunkteZaehlen();
+            }
+
+            //Gewinner ermitteln und festlegen
+            Players = Players.OrderBy(x => x.Punkte).ToList();
+            Winner = Players.Last();
         }
     }
 }
