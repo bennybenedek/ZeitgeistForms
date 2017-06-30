@@ -39,6 +39,8 @@ namespace WindowsFormsAppZeitgeist
                 Karte k = s.AktuelleAuswahl.Last();
                 Idee i = (Idee)k.RefElement;
 
+                party.Patentamt_GoldBerechnen(i);
+
                 if (i.Erfunden)
                 {
                     MessageBox.Show("Diese Idee wurde bereits patentiert.");
@@ -47,7 +49,7 @@ namespace WindowsFormsAppZeitgeist
                 {
                     MessageBox.Show("Es wurden noch nicht alle notwendigen Ideen erfunden, um diese Idee zu patentieren.");
                 }
-                else if (!party.Patentamt_GoldPruefen(i))
+                else if (!party.Patentamt_GoldPruefen())
                 {
                     MessageBox.Show("Du hast nicht genuegend Gold, um diese Idee zu patentieren.");
                 }
@@ -61,7 +63,7 @@ namespace WindowsFormsAppZeitgeist
 
                     myForm.KartenEntfernen();
                     myForm.buttonKartenAnzeigen_Click(this, e);
-                    myForm.RefreshPlayerInfo();
+                    myForm.RefreshAllPlayerInfo();
                     myForm.RefreshDeckInfo();
                     myForm.RefreshBoard();
                     myForm.BlockActions();

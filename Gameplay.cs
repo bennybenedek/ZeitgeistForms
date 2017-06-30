@@ -24,6 +24,8 @@ namespace WindowsFormsAppZeitgeist
         public ContentManager GameContent { get; set; }
         public ContentManagerDB GameContentDb { get; set; }
 
+        public bool GameEnd { get; set; }
+
 
         public Gameplay()
         {
@@ -258,7 +260,7 @@ namespace WindowsFormsAppZeitgeist
             }
             return true;
         }
-        public bool Patentamt_GoldPruefen(Idee id)
+        public void Patentamt_GoldBerechnen(Idee id)
         {
             Spieler s = ActivePlayer;
 
@@ -272,9 +274,14 @@ namespace WindowsFormsAppZeitgeist
                         i.Erfinder.ZuErhalten += i.Patentwert;
                     }
 
-                    Patentamt_ErfindungPruefen(i);
+                    Patentamt_GoldBerechnen(i);
                 }
             }
+        }
+
+         public bool Patentamt_GoldPruefen()
+        {
+            Spieler s = ActivePlayer;
 
             if (!s.GenugGold(s.ZuZahlen))
             {
@@ -292,6 +299,7 @@ namespace WindowsFormsAppZeitgeist
                 return true;
             }
         }
+
         public void Patentamt_IdeePatentieren(Idee id)
         {
             Spieler s = ActivePlayer;
@@ -314,6 +322,11 @@ namespace WindowsFormsAppZeitgeist
             s.AnzahlAktionen--;
             s.HandKarten = GameManager.SortCards(s.HandKarten);
             s.AktuelleAuswahl.Clear();
+
+            if (id.Bezeichnung == "Gluehbirne")
+            {
+                GameEnd = true;
+            }
         }
     }
 }
