@@ -260,7 +260,7 @@ namespace WindowsFormsAppZeitgeist
             }
             return true;
         }
-        public bool Patentamt_GoldPruefen(Idee id)
+        public void Patentamt_GoldBerechnen(Idee id)
         {
             Spieler s = ActivePlayer;
 
@@ -274,9 +274,14 @@ namespace WindowsFormsAppZeitgeist
                         i.Erfinder.ZuErhalten += i.Patentwert;
                     }
 
-                    Patentamt_GoldPruefen(i);
+                    Patentamt_GoldBerechnen(i);
                 }
             }
+        }
+
+         public bool Patentamt_GoldPruefen()
+        {
+            Spieler s = ActivePlayer;
 
             if (!s.GenugGold(s.ZuZahlen))
             {
@@ -294,6 +299,7 @@ namespace WindowsFormsAppZeitgeist
                 return true;
             }
         }
+
         public void Patentamt_IdeePatentieren(Idee id)
         {
             Spieler s = ActivePlayer;
