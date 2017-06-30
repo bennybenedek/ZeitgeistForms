@@ -343,6 +343,11 @@ namespace WindowsFormsAppZeitgeist
             //Bilder aus Pictureboxen entfernen und Panels unsichtbar machen
             KartenEntfernen();
 
+            if (party.GameEnd == true)
+            {
+
+            }
+
             //Nächster Spieler wird aktiver Spieler und erhält eine Aktion
             int activeIndex = party.Players.IndexOf(party.ActivePlayer) + 1;
 

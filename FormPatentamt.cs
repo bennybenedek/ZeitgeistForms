@@ -61,7 +61,7 @@ namespace WindowsFormsAppZeitgeist
 
                     myForm.KartenEntfernen();
                     myForm.buttonKartenAnzeigen_Click(this, e);
-                    myForm.RefreshPlayerInfo();
+                    myForm.RefreshAllPlayerInfo();
                     myForm.RefreshDeckInfo();
                     myForm.RefreshBoard();
                     myForm.BlockActions();

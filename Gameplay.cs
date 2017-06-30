@@ -24,6 +24,8 @@ namespace WindowsFormsAppZeitgeist
         public ContentManager GameContent { get; set; }
         public ContentManagerDB GameContentDb { get; set; }
 
+        public bool GameEnd { get; set; }
+
 
         public Gameplay()
         {
@@ -272,7 +274,7 @@ namespace WindowsFormsAppZeitgeist
                         i.Erfinder.ZuErhalten += i.Patentwert;
                     }
 
-                    Patentamt_ErfindungPruefen(i);
+                    Patentamt_GoldPruefen(i);
                 }
             }
 
@@ -314,6 +316,11 @@ namespace WindowsFormsAppZeitgeist
             s.AnzahlAktionen--;
             s.HandKarten = GameManager.SortCards(s.HandKarten);
             s.AktuelleAuswahl.Clear();
+
+            if (id.Bezeichnung == "Gluehbirne")
+            {
+                GameEnd = true;
+            }
         }
     }
 }

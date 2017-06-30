@@ -96,6 +96,8 @@ namespace WindowsFormsAppZeitgeist
                 }
 
                 comboBoxAnzahlAuswahl.Visible = true;
+
+                labelAuswahl.Text = "Mit wievielen Spionen" + Environment.NewLine + "möchtest du angreifen?";
             }
         }
 
