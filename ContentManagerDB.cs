@@ -37,7 +37,6 @@ namespace WindowsFormsAppZeitgeist
             con.ConnectionString = Properties.Settings.Default.DBPath;
             con.Open();
         }
-
         public void LoadGameElements()
         {
             command = con.CreateCommand();
