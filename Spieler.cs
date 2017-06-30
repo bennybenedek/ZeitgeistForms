@@ -40,9 +40,6 @@ namespace WindowsFormsAppZeitgeist
             Gold = 3;
             AnzahlAktionen = 1;
         }
-        public void PunkteZaehlen()
-        {
-        }
         public void StartIdeeZiehen(List<Karte> HandKarten, List<Karte> IdeeNachziehstapel)
         {
             foreach (Karte k in IdeeNachziehstapel)
@@ -56,9 +53,20 @@ namespace WindowsFormsAppZeitgeist
                 }
             }
         }
-        public void ZimmerPunkteZaehlen()
+        public int ZimmerPunkteZaehlen()
         {
+            int zimmerPunkte = 0;
 
+            foreach (Karte k in ArbeitszimmerKarten)
+            {
+                if (k.RefElement.GetType() == typeof(Idee))
+                {
+                    Idee i = (Idee)k.RefElement;
+                    zimmerPunkte += i.Punktewert;
+                }
+            }
+
+            return zimmerPunkte;
         }
         public void ActionPerformed()
         {
